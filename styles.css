@@ -51,8 +51,15 @@ main {
 
 main p {
     display: inline-block;
-    width: 70%;
+    width: 100%;
     vertical-align: top;
+    text-align: justify;
+}
+
+.custom-width {
+    width: 70%;
+    margin: 0 auto;
+    text-align: justify;
 }
 
 header .link {
@@ -93,12 +100,7 @@ main .url{
     max-width: 300px;
     height: auto;
     margin-bottom: 20px;
-}
-
-.letterbox {
-    background-color: black;
-    flex: 1;
-    margin: 0 20px;
+    text-align: center;
 }
 
 @media (min-width: 768px) {
@@ -112,11 +114,12 @@ main .url{
         width: auto;
         max-width: 300px;
         margin: 0 20px; /* 양쪽 여백 */
+        text-align: justify;
     }
 
     .container p {
         width: auto;
-        text-align: left;
+        text-align: justify;
     }
     
     .letterbox {
