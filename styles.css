@@ -72,7 +72,7 @@ header .link a {
 }
 
 header .link a:hover {
-    color: rgb(34, 94, 248); /* 마우스 오버 색상 */
+    color: rgb(15, 15, 112); /* 마우스 오버 색상 */
 }
 
 main .url a{
@@ -80,11 +80,11 @@ main .url a{
     text-decoration: none;
 }
 main .url a:hover{
-    color: rgb(34, 94, 248); /* 마우스 오버 색상 */
+    color: rgb(15, 15, 112); /* 마우스 오버 색상 */
     text-decoration: none;
 }
 main .url{
-    color: rgb(34, 94, 248); /* 기본 색상 */
+    color: rgb(15, 15, 112); /* 기본 색상 */
     text-decoration: none;
 }
 
