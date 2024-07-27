@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project 1 Details</title>
     <link rel="stylesheet" href="../styles.css">
-    <script async
-    src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap&libraries=&v=weekly">
-    </script>
     <style>
         p {
-            text-align: justify; /* 텍스트 양쪽 정렬 */
+            text-align: justify;
         }
         .left {
             text-align: left;
@@ -21,12 +18,10 @@
             justify-content: center;
             align-items: center;
         }
-        /* 지도 스타일 추가 */
         #map {
             height: 600px;
             width: 80%;
         }
-        /* 모바일 환경을 위한 미디어 쿼리 */
         @media (max-width: 768px) {
             #map {
                 height: 400px;
@@ -41,49 +36,65 @@
         }
     </style>
     <script>
-        function initMap() {
-            // 화면 너비에 따른 zoom 레벨 설정
+        async function initMap() {
+            try {
+                const response = await fetch('/api/google-maps');
+                const data = await response.json();
+
+                if (data.error) {
+                    console.error('Error:', data.error);
+                    return;
+                }
+
+                const apiKey = data.apiKey;
+
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=loadMap&libraries=&v=weekly`;
+                script.async = true;
+                script.defer = true;
+                document.head.appendChild(script);
+            } catch (error) {
+                console.error('Error fetching the API key:', error);
+            }
+        }
+
+        function loadMap() {
             let zoomLevel;
             if (window.innerWidth <= 480) {
-                zoomLevel = 1; // 모바일 환경 zoom 레벨
+                zoomLevel = 1;
             } else if (window.innerWidth <= 768) {
-                zoomLevel = 2; // 태블릿 환경 zoom 레벨
+                zoomLevel = 2;
             } else {
-                zoomLevel = 2.9; // 데스크탑 환경 zoom 레벨
+                zoomLevel = 2.9;
             }
 
-            // 지도 중심 위치 설정
             const center = { lat: 37.44887, lng: 126.9517 };
-            const kams = {lat: 38.871596625562155, lng: -99.34400590392508};
-            const joint = {lat:22.2799020, lng:114.1896750};
-            const brussels = {lat:50.821461305622904, lng:4.391829231282265};
-            const umn = {lat: 44.9741038190935, lng:-93.22766412838796};
-            const hkust = {lat: 22.33767323092721, lng:114.26389242462663};
-            const tokyo = {lat: 35.713928318109815, lng:139.7629625039479};
-            const kaist = {lat:36.3728, lng: 127.3620};
+            const kams = { lat: 38.871596625562155, lng: -99.34400590392508 };
+            const joint = { lat: 22.2799020, lng: 114.1896750 };
+            const brussels = { lat: 50.821461305622904, lng: 4.391829231282265 };
+            const umn = { lat: 44.9741038190935, lng: -93.22766412838796 };
+            const hkust = { lat: 22.33767323092721, lng: 114.26389242462663 };
+            const tokyo = { lat: 35.713928318109815, lng: 139.7629625039479 };
+            const kaist = { lat: 36.3728, lng: 127.3620 };
 
-            // 지도를 표시할 요소 찾기
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: zoomLevel,
                 center: center,
             });
 
-            // InfoWindow 하나만 생성
             const infoWindow = new google.maps.InfoWindow();
 
-            // 마커와 정보창 내용을 배열로 관리
             const markers = [
                 { position: center, content: "<h2>Multi-dimensional Materials Chemistry Lab</h2><h3>Seoul National University</h3><p>Synthesis Ag cluster-based AIGS(silver indium gallium sulfide)-core</p><p>Analyze LMBs SEI Components by Cryo-TEM Imaging and region-specific characterization</p>" },
                 { position: kams, content: "<h2>Summer International Exchange program</h2><h3>Kansas Academy of Mathematics and Science</h3><p>Synthesis of conventional Quantum dots, CdSe; eco-friendly Quantum Dots, ZnSe. Applying them on Gratzel cell</p>" },
                 { position: joint, content: "<h2>51st Joint School Science Exhibition Korean representative</h2><h3>51st Joint School Science Exhibition</h3><p>Wettability Change of Self-Assembled Monolayers (SAMs) of Thiol on Gold</p>" },
-                { position: brussels, content: "<h2>SNU in EU Program</h2><h3>Brussels School of Governance</h3><p>Understanding European Unions (EU)</p><p>Make a presentation about 'The European External Action Service'</p>" },
+                { position: brussels, content: "<h2>SNU in EU Program</h<|meta_end|>2><h3>Brussels School of Governance</h3><p>Understanding European Unions (EU)</p><p>Make a presentation about 'The European External Action Service'</p>" },
                 { position: umn, content: "<h2>SNU-UMN Culture Exchange Program</h2><h3>University of Minnesota</h3><p>Sharing both American and South Korean culture via Zoom</p>" },
                 { position: hkust, content: "<h2>AUA-HKUST Entrepreneurship Bootcamp 2024</h3><h3>Hong Kong University of Science and Technology</h3><p>Borderless Healthcare: A Platform for Overseas Patients to Obtain Prescriptions Everywhere</p>" },
                 { position: tokyo, content: "<h2>Tokyo Forum Youth Session</h3><h3>The University of Tokyo</h3><p>Ongoing project</p>" },
                 { position: kaist, content: "<h2>Center for Cell-Encapsulation Research</h3><h3>Korea Advanced Institute of Science and Technology</h3><p>Created a porous titanium oxide shell to facilitate the simple culturing of astrocytes</p> <p>Confirmed the function of encapsulated astrocytes by analyzing the length of neurons co-cultured with astrocytes</p>" }
             ];
 
-            // 마커와 클릭 이벤트 추가
             markers.forEach(({ position, content }) => {
                 const marker = new google.maps.Marker({
                     position,
@@ -95,6 +106,8 @@
                 });
             });
         }
+
+        window.onload = initMap;
     </script>
 </head>
 <body>
@@ -109,7 +122,6 @@
     <header>
         <h1>International Activities</h1>
     </header>
-    <!-- 지도 요소 추가 -->
     <div class="map-container">
         <div id="map"></div>
     </div>
