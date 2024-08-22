@@ -50,7 +50,7 @@
         }
     </style>
     <script>
-        fetch('https://woojinb.vercel.app/api-key')
+        fetch('/api-key')
             .then(response => response.json())
             .then(data => {
                 const apiKey = data.apiKey;
