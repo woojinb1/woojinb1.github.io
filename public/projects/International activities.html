@@ -112,7 +112,10 @@
                         <h3>51st Joint School Science Exhibition</h3>
                         <p>Wettability Change of Self-Assembled Monolayers (SAMs) of Thiol on Gold</p>
                     `,
-                    customIcon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'  // 다른 웹상의 마커 아이콘
+                    customIcon: {
+                        url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',  // 다른 웹상의 마커 아이콘
+                        scaledSize: new google.maps.Size(60, 60)  // 마커 크기 조절
+                    }
                 },
                 { 
                     position: brussels, 
