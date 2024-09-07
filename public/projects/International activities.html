@@ -86,6 +86,15 @@
                 center: center,
             });
 
+            const iconOptions = {
+                path: google.maps.SymbolPath.CIRCLE,  // 원형 마커
+                scale: 8,  // 마커 크기 조절
+                fillColor: '#FF0000',  // 마커 내부 색상
+                fillOpacity: 1,  // 내부 색상 투명도
+                strokeWeight: 2,  // 외곽선 두께
+                strokeColor: '#FFFFFF',  // 외곽선 색상
+            };
+
             const markers = [
                 { 
                     position: center, 
@@ -136,7 +145,7 @@
                         <h2>AUA-HKUST Entrepreneurship Bootcamp 2024</h3>
                         <h3>Hong Kong University of Science and Technology</h2>
                         <p>Borderless Healthcare: A Platform for Overseas Patients to Obtain Prescriptions Everywhere</p>
-                        <a href="https://www.linkedin.com/posts/hkust-entrepreneurship-center_weeepark-chandangsocialservicesfoundation-activity-7216736929734643712-84jD?utm_source=share&utm_medium=member_desktop" target="_blank" style="color:blue; text-decoration:underline;">News Link</a>
+                        <a href="https://www.linkedin.com/posts/hkust-entrepreneurship-center_weeepark-chandangsocialservicesfoundation-activity-7216736929734643712-84jD?utm_source=share&utm_medium=member_desktop" target="_blank" style="color:blue; text-decoration:underline;">LinkedIn</a>
                     `
                 },
                 { 
@@ -163,6 +172,7 @@
                 const marker = new google.maps.Marker({
                     position,
                     map,
+                    icon: iconOptions,  // 아이콘 설정
                 });
 
                 marker.addListener("click", () => {
