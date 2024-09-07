@@ -86,14 +86,6 @@
                 center: center,
             });
 
-            const iconOptions = {
-                scale: 1,  // 마커 크기 조절
-                fillColor: '#FF0000',  // 마커 내부 색상
-                fillOpacity: 1,  // 내부 색상 투명도
-                strokeWeight: 2,  // 외곽선 두께
-                strokeColor: '#FFFFFF',  // 외곽선 색상
-            };
-
             const markers = [
                 { 
                     position: center, 
@@ -119,7 +111,8 @@
                         <h2>51st Joint School Science Exhibition Korean representative</h2>
                         <h3>51st Joint School Science Exhibition</h3>
                         <p>Wettability Change of Self-Assembled Monolayers (SAMs) of Thiol on Gold</p>
-                    `
+                    `,
+                    customIcon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'  // 다른 웹상의 마커 아이콘
                 },
                 { 
                     position: brussels, 
@@ -167,11 +160,11 @@
                 }
             ];
 
-            markers.forEach(({ position, content }) => {
+            markers.forEach(({ position, content, customIcon }) => {
                 const marker = new google.maps.Marker({
                     position,
                     map,
-                    icon: iconOptions,  // 아이콘 설정
+                    icon: customIcon || null  // 기본 마커 사용, customIcon이 있으면 사용
                 });
 
                 marker.addListener("click", () => {
