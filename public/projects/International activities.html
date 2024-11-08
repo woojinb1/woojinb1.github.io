@@ -71,8 +71,9 @@
             } else {
                 zoomLevel = 2.9;
             }
-
+            
             const center = { lat: 37.44887, lng: 126.9517 };
+            const ncstate = {lat: 35.7847, lng: -101.3179};
             const kams = { lat: 38.871596625562155, lng: -99.34400590392508 };
             const joint = { lat: 22.2799020, lng: 114.1896750 };
             const brussels = { lat: 50.821461305622904, lng: 4.391829231282265 };
@@ -87,6 +88,14 @@
             });
 
             const markers = [
+            { 
+                    position: ncstate, 
+                    content: `
+                        <h2>Exchange student</h2>
+                        <h3>North Carolina State University</h3>
+                        <p>Received a $9,000 scholarship from the government during exchange student</p>
+                    `
+                },
                 { 
                     position: center, 
                     content: `
