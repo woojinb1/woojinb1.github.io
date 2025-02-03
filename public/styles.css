@@ -103,6 +103,11 @@ main .url{
     text-align: center;
 }
 
+.small-text {
+    font-size: 0.8em; /* 부모 요소 대비 80% 크기로 조정 */
+    font-weight: bold; /* 너무 두껍지 않게 조정 */
+}
+
 @media (min-width: 768px) {
     .container {
         flex-direction: row-reverse; /* 오른쪽 정렬 */
