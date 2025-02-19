@@ -73,6 +73,7 @@
             }
             
             const center = { lat: 37.44887, lng: 126.9517 };
+            const asu = {lat: 33.4242, lng: 111.9281};
             const ncstate = {lat: 35.7847, lng: -78.68136};
             const kams = { lat: 38.871596625562155, lng: -99.34400590392508 };
             const joint = { lat: 22.2799020, lng: 114.1896750 };
@@ -88,6 +89,16 @@
             });
 
             const markers = [
+            { 
+                    position: asu, 
+                    content: `
+                        <h2>Exchange student</h2>
+                        <h3>North Carolina State University</h3>
+                        <p>Awarded a $9000 scholarship as a STEM-specialized exchange student</p>
+                        <p>Undergraduate Researcher in Abolhasani group</p>
+                        <a href="https://www.abolhasanilab.com" target="_blank" style="color:blue; text-decoration:underline;">Home page</a>
+                    `
+                },
             { 
                     position: ncstate, 
                     content: `
