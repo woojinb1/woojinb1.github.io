@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//macOS 15.3.2//EN
+N:Bae;Woojin;;;
+FN:Woojin Bae
+ORG:Seoul National University;
+EMAIL;type=INTERNET;type=WORK;type=pref:usmebbb@snu.ac.kr
+item1.EMAIL;type=INTERNET:wbae@ncsu.edu
+item1.X-ABLabel:학교
+TEL;type=CELL;type=VOICE;type=pref:+1 (984) 379-9887
+item2.URL;type=pref:woojinb.vercel.app
+item2.X-ABLabel:_$!<HomePage>!$_
+END:VCARD
