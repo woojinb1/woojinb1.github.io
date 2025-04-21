@@ -16,7 +16,6 @@ This portfolio is built to:
 - **Hosting**: [Vercel](https://vercel.com)
 - **Version Control**: Git + GitHub
 
-> No build system or framework is used — everything is lightweight and easy to maintain.
 
 ## 🧠 Notable Features
 
