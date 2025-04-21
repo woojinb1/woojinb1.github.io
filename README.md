@@ -7,8 +7,7 @@ Welcome to the source code of [woojinb.vercel.app](https://woojinb.vercel.app) â
 
 This portfolio is built to:
 - Highlight my **independent research** in self-driving labs, perovskite nanomaterials, and Cryo-TEM analysis
-- Share my **academic and professional background**, including CV, publications, and forum participation
-- Present my **projects**, including AI-driven optimization tools and automated synthesis platforms
+- Share my **academic background**, including CV, publications, and forum participation
 
 ## ðŸš€ Tech Stack
 
