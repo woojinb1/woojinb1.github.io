@@ -79,7 +79,22 @@ main p {
 }
 
 section {
-    margin-bottom: 30px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+section h3 {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.custom-width {
+    margin: 0;
+    flex: 1;
+    min-width: 200px;
 }
 
 hr {
@@ -169,4 +184,12 @@ main .url {
         max-width: 300px;
         margin: 0 20px;
     }
+}
+
+.btn {
+    color: blue;
+}
+
+.btn:visited {
+    color: blue;
 }
