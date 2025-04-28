@@ -69,6 +69,12 @@
             text-align: left;
             padding: 15px;
             background-color: white;
+            position: relative;
+            padding-right: 160px;  /* 버튼 너비 + 여백만큼 패딩 추가 */
+        }
+
+        .title-container {
+            position: relative;
         }
 
         header h1 {
@@ -79,6 +85,49 @@
         header p {
             margin: 5px 0;
             color: #555;
+        }
+
+        .download-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+            font-size: 0.9em;
+            position: absolute;
+            right: -145px;  /* 버튼 너비 + 여백 */
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .download-btn i {
+            font-size: 1.1em;
+        }
+
+        @media screen and (max-width: 768px) {
+            header {
+                padding-right: 15px;
+            }
+            
+            .title-container {
+                margin-bottom: 50px;  /* 버튼 높이만큼 마진 추가 */
+            }
+
+            .download-btn {
+                position: absolute;
+                right: 0;
+                top: 100%;
+                transform: translateY(10px);
+                font-size: 0.85em;
+            }
         }
     </style>
 </head>
@@ -92,8 +141,14 @@
         </ul>
     </nav>
     <header>
-        <h1>Curriculum Vitae</h1>
-        <p>Take a look at my academic and research journey!</p>
+        <div class="title-container">
+            <h1>Curriculum Vitae</h1>
+            <p>Take a look at my academic and research journey!</p>
+            <a href="CV_WoojinBae.pdf" download class="download-btn">
+                <i class="fas fa-download"></i>
+                Download CV
+            </a>
+        </div>
     </header>
     <div class="pdf-container">
         <div id="pdf-viewer"></div>
