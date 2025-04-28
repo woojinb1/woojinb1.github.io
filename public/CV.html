@@ -6,18 +6,79 @@
     <title>Woojin Bae - CV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <!-- PDF.js 파일들 추가 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf_viewer.min.css">
     <style>
-        .pdf-container {
-            width: 100%;
-            height: 100vh;
-            margin: 0 auto;
-            padding: 20px;
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        
-        .pdf-viewer {
+
+        /* 네비게이션 바 관련 스타일 제거 (styles.css에서 상속) */
+
+        .pdf-container {
+            flex: 1;
             width: 100%;
-            height: calc(100vh - 100px);
-            border: none;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+
+        #pdf-viewer {
+            width: 100%;
+            max-width: 1000px;
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .canvas-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto !important;
+        }
+
+        /* 모바일 환경에서의 스타일 */
+        @media screen and (max-width: 768px) {
+            .pdf-container {
+                padding: 10px;
+            }
+            #pdf-viewer {
+                height: calc(100vh - 250px);
+                padding: 10px;
+            }
+        }
+
+        /* 헤더 스타일도 styles.css와 일치하도록 수정 */
+        header {
+            text-align: left;
+            padding: 15px;
+            background-color: white;
+        }
+
+        header h1 {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        header p {
+            margin: 5px 0;
+            color: #555;
         }
     </style>
 </head>
@@ -35,7 +96,81 @@
         <p>Take a look at my academic and research journey!</p>
     </header>
     <div class="pdf-container">
-        <embed src="CV_WoojinBae.pdf" type="application/pdf" class="pdf-viewer">
+        <div id="pdf-viewer"></div>
     </div>
+
+    <script>
+        // PDF.js 워커 설정
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        // PDF 로드 및 표시
+        async function loadPDF() {
+            try {
+                const loadingTask = pdfjsLib.getDocument('CV_WoojinBae.pdf');
+                const pdf = await loadingTask.promise;
+                const container = document.getElementById('pdf-viewer');
+
+                // 레티나 디스플레이 대응
+                const pixelRatio = window.devicePixelRatio || 1;
+                
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    const page = await pdf.getPage(pageNum);
+                    
+                    // 기본 스케일 증가 및 레티나 디스플레이 대응
+                    const viewerWidth = container.clientWidth;
+                    const viewport = page.getViewport({ scale: 1 });
+                    const scale = (viewerWidth / viewport.width) * 1.5; // 기본 스케일 1.5배 증가
+                    const scaledViewport = page.getViewport({ scale: scale * pixelRatio });
+
+                    const canvasContainer = document.createElement('div');
+                    canvasContainer.className = 'canvas-container';
+                    container.appendChild(canvasContainer);
+
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d', { alpha: false });
+
+                    // 캔버스 크기 설정 (레티나 대응)
+                    canvas.width = scaledViewport.width;
+                    canvas.height = scaledViewport.height;
+                    canvas.style.width = `${scaledViewport.width / pixelRatio}px`;
+                    canvas.style.height = `${scaledViewport.height / pixelRatio}px`;
+
+                    canvasContainer.appendChild(canvas);
+
+                    // 렌더링 품질 향상 설정
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: scaledViewport,
+                        enableWebGL: true,
+                        renderInteractiveForms: true,
+                    };
+
+                    await page.render(renderContext).promise;
+                }
+            } catch (error) {
+                console.error('PDF 로딩 에러:', error);
+                document.getElementById('pdf-viewer').innerHTML = `
+                    <p style="text-align: center; color: red;">PDF를 불러오는데 실패했습니다.</p>
+                    <p style="text-align: center;">
+                        <a href="CV_WoojinBae.pdf" download style="color: blue;">
+                            PDF 직접 다운로드
+                        </a>
+                    </p>`;
+            }
+        }
+
+        // 페이지 로드 시 PDF 로드
+        window.addEventListener('load', loadPDF);
+
+        // 창 크기 변경 시 PDF 다시 로드 (디바운스 처리)
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                document.getElementById('pdf-viewer').innerHTML = '';
+                loadPDF();
+            }, 300);
+        });
+    </script>
 </body>
 </html>
