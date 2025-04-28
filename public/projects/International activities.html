@@ -5,6 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>International Projects</title>
     <link rel="stylesheet" href="../styles.css">
+    <style>
+        .map-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        #map {
+            height: 600px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .info-container {
+            width: 100%;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* 모바일 환경에서의 스타일 */
+        @media screen and (max-width: 768px) {
+            .map-container {
+                padding: 10px;
+            }
+
+            #map {
+                height: 400px;
+            }
+
+            .info-container {
+                padding: 15px;
+            }
+        }
+
+        /* 작은 모바일 화면 */
+        @media screen and (max-width: 480px) {
+            #map {
+                height: 300px;
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #333;
+            border: 1px solid #333;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #333;
+            color: white;
+        }
+    </style>
 
     <script>
         fetch('/api-key')
@@ -127,7 +193,7 @@
                     content: `
                         <h2>Tokyo Forum Youth Session</h3>
                         <h3>The University of Tokyo</h3>
-                        <p>Participated in the Tokyo Forum 2024 Youth Session, contributing to discussions on “Rethinking Life Choices Beyond the ‘Child Penalty’” and engaging in the Wrap-up Session.</p>
+                        <p>Participated in the Tokyo Forum 2024 Youth Session, contributing to discussions on "Rethinking Life Choices Beyond the 'Child Penalty'" and engaging in the Wrap-up Session.</p>
                         <a href="https://n.news.naver.com/article/011/0004386074?sid=101" target="_blank" style="color:blue; text-decoration:underline;">News Link</a>
                         <a href="https://www.mk.co.kr/news/contributors/11180690" target="_blank" style="color:blue; text-decoration:underline;">News Link</a>
                         `
