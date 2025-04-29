@@ -8,51 +8,11 @@
 </head>
 
 <style>
-main {
-    padding: 0 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-main h2 {
-    margin-bottom: 1.5rem;
-    margin-top: 2rem;
-    color: #333;
-    font-size: 1.8em;
-}
-
-main p {
-    text-align: left;
-    word-break: keep-all;
-    margin: 10px 0;
-    hyphens: none;
-    overflow-wrap: break-word;
-    color: #555;
-}
-
-section {
-    margin-bottom: 1.5rem;
-    padding: 1.5rem;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid #eee;
+.project-content {
     display: flex;
-    flex-direction: column;
-}
-
-section:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-section h3 {
-    margin: 0 0 1rem 0;
-    color: #222;
-    font-size: 1.2em;
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 0.8rem;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .custom-width {
@@ -61,71 +21,7 @@ section h3 {
     flex: 0 1 auto;
 }
 
-.project-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.btn {
-    padding: 8px 20px;
-    background-color: #007bff;
-    color: white !important;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    font-size: 0.9em;
-    border: none;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.btn:hover {
-    background-color: #0056b3;
-    color: white !important;
-}
-
-.small-text {
-    font-size: 0.8em;
-    color: #666;
-    font-weight: normal;
-}
-
-hr {
-    border: 0;
-    height: 1px;
-    background-color: #eee;
-    width: 100%;
-    margin: 2rem 0;
-}
-
-.category-section {
-    background-color: #f8f9fa;
-    padding: 2rem;
-    border-radius: 15px;
-    margin-bottom: 3rem;
-    max-width: 100%;
-}
-
-/* 모바일 대응 */
 @media screen and (max-width: 768px) {
-    main {
-        padding: 0 15px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    
-    section {
-        padding: 1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .category-section {
-        padding: 1rem;
-        margin-bottom: 2rem;
-    }
-
     .project-content {
         display: flex;
         flex-direction: row;
@@ -137,16 +33,6 @@ hr {
         flex: 1;
         min-width: 0;
         margin-right: 10px;
-    }
-
-    main h2 {
-        font-size: 1.5em;
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-    }
-
-    section h3 {
-        font-size: 1.1em;
     }
 }
 </style>
@@ -226,6 +112,8 @@ hr {
         </div>
     </main>
     <hr>
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;© Woojin Bae, 2025</p>
+    <footer class="copyright">
+        <p>© Woojin Bae, 2025</p>
+    </footer>
 </body>
 </html>
