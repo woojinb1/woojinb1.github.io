@@ -38,6 +38,10 @@ nav ul li a:hover {
     background-color: #555;
 }
 
+nav ul li a:visited {
+    color: white;
+}
+
 header {
     text-align: left;
     padding: 10px;
@@ -128,8 +132,6 @@ hr {
     font-weight: bold;
 }
 
-
-
 main .url a:hover {
     color: rgb(15, 15, 112);
 }
@@ -186,6 +188,14 @@ main .url {
         max-width: 300px;
         margin: 0 20px;
     }
+}
+
+a {
+    color: blue;
+}
+
+a:visited {
+    color: blue;
 }
 
 .btn {
