@@ -9,20 +9,6 @@ This portfolio is built to:
 - Highlight my **independent research** in self-driving labs, perovskite nanomaterials, and Cryo-TEM analysis
 - Share my **academic background**, including CV, publications, and forum participation
 
-## 🚀 Tech Stack
-
-- **Frontend**: HTML, CSS (Vanilla)
-- **Hosting**: [Vercel](https://vercel.com)
-- **Version Control**: Git + GitHub
-
-
-## 🧠 Notable Features
-
-- Research-focused sections and project showcases
-- Mobile-responsive layout
-- Embedded videos and documents (CV, publications)
-- Clean UI with intuitive navigation
-
 ## 📬 Contact
 
 If you’re interested in collaboration, research, or just want to chat, feel free to connect!
