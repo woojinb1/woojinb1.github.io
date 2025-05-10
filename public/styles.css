@@ -236,6 +236,9 @@ a:visited {
     margin-top: 0;
     z-index: 100;
     border-bottom: 1px solid #f0f0f0;
+    text-align: left;
+    align-self: flex-start;
+    width: 100%;
 }
 
 @media screen and (max-width: 768px) {
@@ -310,6 +313,24 @@ a:visited {
         width: auto;
         max-width: 300px;
         margin: 0;
+    }
+
+    /* News container specific styles */
+    main.container .news-header {
+        width: 100%;
+        text-align: left;
+        order: -1;
+        position: relative;
+    }
+
+    main.container .news-list {
+        width: 100%;
+    }
+
+    /* Reset flex layout for news container */
+    main.news-container {
+        flex-direction: column !important;
+        align-items: flex-start !important;
     }
 
     @media screen and (max-width: 768px) {
