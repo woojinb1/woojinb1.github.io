@@ -160,23 +160,41 @@
         @media screen and (max-width: 768px) {
             header {
                 padding-right: 15px;
+                padding-bottom: 60px; /* 버튼 높이를 고려한 패딩 추가 */
             }
             
             .title-container {
-                margin-bottom: 50px;  /* 버튼 높이만큼 마진 추가 */
+                margin-bottom: 0; /* 기존 마진 제거 */
+                padding-right: 0; /* 모바일에서는 패딩 제거 */
             }
 
-            .download-container, .download-btn {
+            .download-container {
                 position: absolute;
-                right: 0;
-                top: 100%;
-                transform: translateY(10px);
-                font-size: 0.85em;
+                right: 15px; /* 오른쪽 여백 추가 */
+                top: calc(100% - 40px); /* 위치 조정 */
+                transform: none;
+                width: auto; /* 버튼 너비 자동 설정 */
+            }
+
+            .download-btn {
+                font-size: 0.9em;
+                padding: 8px 12px; /* 버튼 패딩 조정 */
             }
 
             .dropdown-content {
                 top: 100%;
                 right: 0;
+                min-width: 140px; /* 드롭다운 너비 조정 */
+            }
+            
+            /* 모바일에서 드롭다운이 위로 표시되도록 변경 (공간이 부족할 경우) */
+            @media screen and (max-height: 600px) {
+                .dropdown-content {
+                    top: auto;
+                    bottom: 100%;
+                    margin-top: 0;
+                    margin-bottom: 5px;
+                }
             }
         }
     </style>
