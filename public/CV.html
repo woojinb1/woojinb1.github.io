@@ -80,10 +80,6 @@
         header p {
             margin: 5px 0;
             color: #555;
-            max-width: 600px;  /* 문단 최대 너비 설정 */
-            line-height: 1.4;  /* 줄 간격 조정 */
-            word-wrap: break-word; /* 단어 감싸기 */
-            margin-bottom: 10px; /* 아래쪽 여백 추가 */
         }
 
         .download-btn {
@@ -160,36 +156,23 @@
         @media screen and (max-width: 768px) {
             header {
                 padding-right: 15px;
-                padding-bottom: 60px; /* 버튼 높이를 고려한 패딩 추가 */
             }
             
             .title-container {
-                margin-bottom: 0; /* 기존 마진 제거 */
-                padding-right: 0; /* 모바일에서는 패딩 제거 */
-                padding-bottom: 50px; /* 버튼을 위한 아래쪽 공간 확보 */
+                margin-bottom: 50px;  /* 버튼 높이만큼 마진 추가 */
             }
 
-            .download-container {
+            .download-container, .download-btn {
                 position: absolute;
-                right: 15px; /* 오른쪽 여백 추가 */
-                top: auto; /* top 위치 속성 제거 */
-                bottom: 0; /* 컨테이너 하단에 배치 */
-                transform: none;
-                width: auto; /* 버튼 너비 자동 설정 */
-            }
-
-            .download-btn {
-                font-size: 0.9em;
-                padding: 8px 12px; /* 버튼 패딩 조정 */
+                right: 0;
+                top: 100%;
+                transform: translateY(10px);
+                font-size: 0.85em;
             }
 
             .dropdown-content {
-                top: auto; /* top 위치 제거 */
-                bottom: 100%; /* 버튼 위로 표시 */
+                top: 100%;
                 right: 0;
-                min-width: 140px; /* 드롭다운 너비 조정 */
-                margin-top: 0;
-                margin-bottom: 5px; /* 버튼과의 간격 */
             }
         }
     </style>
@@ -209,7 +192,7 @@
             <p>Take a look at my academic and research journey!</p>
             <div class="download-container">
                 <div class="download-btn">
-                    <i class="fas fa-download"></i>
+                <i class="fas fa-download"></i>
                     Download
                 </div>
                 <div class="dropdown-content">
