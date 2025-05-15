@@ -64,10 +64,12 @@
         /* 헤더 스타일도 styles.css와 일치하도록 수정 */
         header {
             padding-right: 160px;  /* 버튼 너비 + 여백만큼 패딩 추가 */
+            position: relative;  /* 명시적으로 relative 설정 */
         }
 
         .title-container {
             position: relative;
+            padding-right: 160px;  /* 버튼을 위한 공간 확보 */
         }
 
         header h1 {
@@ -89,13 +91,7 @@
             gap: 8px;
             transition: background-color 0.3s;
             font-size: 0.9em;
-            position: absolute;
-            right: -145px;  /* 버튼 너비 + 여백 */
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .download-btn, .download-btn:visited {
+            cursor: pointer;
             color: white;
             text-decoration: none;
         }
@@ -110,6 +106,53 @@
             font-size: 1.1em;
         }
 
+        /* 드롭다운 메뉴 스타일 */
+        .download-container {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            z-index: 1;
+            top: 100%;
+            right: 0;
+            margin-top: 5px;
+        }
+
+        /* 클릭 시 보이는 클래스 */
+        .show-dropdown {
+            display: block;
+        }
+
+        .dropdown-item {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        .dropdown-item i {
+            font-size: 1.1em;
+            color: #007bff;
+        }
+
         @media screen and (max-width: 768px) {
             header {
                 padding-right: 15px;
@@ -119,12 +162,17 @@
                 margin-bottom: 50px;  /* 버튼 높이만큼 마진 추가 */
             }
 
-            .download-btn {
+            .download-container, .download-btn {
                 position: absolute;
                 right: 0;
                 top: 100%;
                 transform: translateY(10px);
                 font-size: 0.85em;
+            }
+
+            .dropdown-content {
+                top: 100%;
+                right: 0;
             }
         }
     </style>
@@ -142,10 +190,22 @@
         <div class="title-container">
             <h1>Curriculum Vitae</h1>
             <p>Take a look at my academic and research journey!</p>
-            <a href="CV_WoojinBae.pdf" download class="download-btn">
-                <i class="fas fa-download"></i>
-                Download CV
-            </a>
+            <div class="download-container">
+                <div class="download-btn">
+                    <i class="fas fa-download"></i>
+                    Download
+                </div>
+                <div class="dropdown-content">
+                    <a href="CV_WoojinBae.pdf" download class="dropdown-item">
+                        <i class="fas fa-file-pdf"></i>
+                        CV (Academic)
+                    </a>
+                    <a href="Resume_WoojinBae.pdf" download class="dropdown-item">
+                        <i class="fas fa-file-alt"></i>
+                        Resume (Professional)
+                    </a>
+                </div>
+            </div>
         </div>
     </header>
     <div class="pdf-container">
@@ -158,6 +218,25 @@
     <script>
         // PDF.js 워커 설정
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        // 드롭다운 토글 기능
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadBtn = document.querySelector('.download-btn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            
+            // 다운로드 버튼 클릭 시 드롭다운 토글
+            downloadBtn.addEventListener('click', function(e) {
+                e.stopPropagation(); // 이벤트 버블링 방지
+                dropdownContent.classList.toggle('show-dropdown');
+            });
+            
+            // 페이지 다른 곳 클릭 시 드롭다운 닫기
+            document.addEventListener('click', function(e) {
+                if (!downloadBtn.contains(e.target)) {
+                    dropdownContent.classList.remove('show-dropdown');
+                }
+            });
+        });
 
         // PDF 로드 및 표시
         async function loadPDF() {
