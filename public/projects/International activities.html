@@ -31,35 +31,52 @@
         .info-container {
             width: 100%;
             padding: 15px;
-            background-color: white;
+            background-color: var(--bg-secondary);
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px var(--box-shadow);
             box-sizing: border-box;
             min-height: 100px;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .info-container h2 {
             font-size: 1.2em;
             margin: 0 0 10px 0;
+            color: var(--text-color);
+            transition: color 0.3s ease;
         }
 
         .info-container h3 {
             font-size: 1em;
             margin: 0 0 10px 0;
-            color: #555;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
         }
 
         .info-container p {
             font-size: 0.9em;
             line-height: 1.5;
             margin: 5px 0;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
         }
 
         .info-container a {
-            color: #0066cc;
+            color: var(--primary-color);
             text-decoration: none;
             display: inline-block;
             margin-top: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .info-container a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        /* 다크모드에서 구글맵 색상 반전 방지 */
+        #map iframe {
+            filter: none !important;
         }
 
         /* 모바일 환경에서의 스타일 */
@@ -156,7 +173,7 @@
                         <h3>Arizona State University</h3>
                         <p>Collaborated on cryo-TEM in beam-sensitive materials synthesized at NCSU, with 4D-STEM and phase-retrieval techniques.</p>
                         <p>Undergraduate Researcher in Susarla group</p>
-                        <a href="https://faculty.engineering.asu.edu/susarla-group/" target="_blank" style="color:blue; text-decoration:underline;">Home page</a>
+                        <a href="https://faculty.engineering.asu.edu/susarla-group/" target="_blank">Home page</a>
                     `
                 },
             { 
@@ -166,7 +183,7 @@
                         <h3>North Carolina State University</h3>
                         <p>Awarded a $9000 scholarship as a STEM-specialized exchange student</p>
                         <p>Undergraduate Researcher in Abolhasani group</p>
-                        <a href="https://www.abolhasanilab.com" target="_blank" style="color:blue; text-decoration:underline;">Home page</a>
+                        <a href="https://www.abolhasanilab.com" target="_blank">Home page</a>
                     `
                 },
                 { 
@@ -176,7 +193,7 @@
                         <h3>Seoul National University</h3>
                         <p>Synthesized Ag cluster-based AIGS(silver indium gallium sulfide)-core</p>
                         <p>SEI Structures Dependent Li-Morphology Characterized by cryo-TEM; developed a protocol for quantitative analysis of SEI</p>
-                        <a href="https://parklab.snu.ac.kr" target="_blank" style="color:blue; text-decoration:underline;">Home page</a>
+                        <a href="https://parklab.snu.ac.kr" target="_blank">Home page</a>
                     `
                 },
                 { 
@@ -222,7 +239,7 @@
                         <h2>AUA-HKUST Entrepreneurship Bootcamp 2024</h3>
                         <h3>Hong Kong University of Science and Technology</h2>
                         <p>Borderless Healthcare: A Platform for Overseas Patients to Obtain Prescriptions Everywhere</p>
-                        <a href="https://www.linkedin.com/posts/hkust-entrepreneurship-center_weeepark-chandangsocialservicesfoundation-activity-7216736929734643712-84jD?utm_source=share&utm_medium=member_desktop" target="_blank" style="color:blue; text-decoration:underline;">LinkedIn</a>
+                        <a href="https://www.linkedin.com/posts/hkust-entrepreneurship-center_weeepark-chandangsocialservicesfoundation-activity-7216736929734643712-84jD?utm_source=share&utm_medium=member_desktop" target="_blank">LinkedIn</a>
                     `
                 },
                 { 
@@ -234,8 +251,8 @@
                             <iframe src="https://www.youtube.com/embed/AJ7zCMsYVOY" style="width: 100%; aspect-ratio: 16/9;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <p>Participated in the Tokyo Forum 2024 Youth Session, contributing to discussions on "Rethinking Life Choices Beyond the 'Child Penalty'" and engaging in the Wrap-up Session.</p>
-                        <a href="https://n.news.naver.com/article/011/0004386074?sid=101" target="_blank" style="color:blue; text-decoration:underline;">News Link</a>
-                        <a href="https://www.mk.co.kr/news/contributors/11180690" target="_blank" style="color:blue; text-decoration:underline;">News Link</a>
+                        <a href="https://n.news.naver.com/article/011/0004386074?sid=101" target="_blank">News Link</a>
+                        <a href="https://www.mk.co.kr/news/contributors/11180690" target="_blank">News Link</a>
                         `
                 },
                 { 
