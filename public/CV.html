@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curriculum Vitae</title>
+    <title>Woojin Bae - CV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <!-- PDF.js 파일들 추가 -->
@@ -25,7 +25,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #f5f5f5;
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease;
         }
 
         #pdf-viewer {
@@ -33,10 +34,11 @@
             max-width: 1000px;
             height: calc(100vh - 200px);
             overflow-y: auto;
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background: var(--bg-secondary);
+            box-shadow: 0 0 10px var(--box-shadow);
             padding: 20px;
             border-radius: 5px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .canvas-container {
@@ -48,6 +50,8 @@
         canvas {
             max-width: 100%;
             height: auto !important;
+            border-radius: 5px;
+            box-shadow: 0 0 5px var(--box-shadow);
         }
 
         /* 모바일 환경에서의 스타일 */
@@ -75,15 +79,21 @@
         header h1 {
             font-weight: bold;
             margin: 0;
+            color: var(--text-color);
         }
 
         header p {
             margin: 5px 0;
-            color: #555;
+            color: var(--text-secondary);
+            max-width: 600px;  /* 문단 최대 너비 설정 */
+            line-height: 1.4;  /* 줄 간격 조정 */
+            word-wrap: break-word; /* 단어 감싸기 */
+            margin-bottom: 10px; /* 아래쪽 여백 추가 */
+            transition: color 0.3s ease;
         }
 
         .download-btn {
-            background-color: #007bff;
+            background-color: var(--primary-color);
             padding: 8px 16px;
             border-radius: 5px;
             display: inline-flex;
@@ -97,7 +107,7 @@
         }
 
         .download-btn:hover {
-            background-color: #0056b3;
+            background-color: var(--primary-hover);
             color: white;
             text-decoration: none;
         }
@@ -118,14 +128,15 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: white;
+            background-color: var(--bg-secondary);
             min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 8px 16px 0px var(--box-shadow);
             border-radius: 5px;
             z-index: 1;
             top: 100%;
             right: 0;
             margin-top: 5px;
+            transition: background-color 0.3s ease;
         }
 
         /* 클릭 시 보이는 클래스 */
@@ -134,23 +145,23 @@
         }
 
         .dropdown-item {
-            color: #333;
+            color: var(--text-color);
             padding: 12px 16px;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .dropdown-item:hover {
-            background-color: #f1f1f1;
+            background-color: var(--border-secondary);
             border-radius: 5px;
         }
 
         .dropdown-item i {
             font-size: 1.1em;
-            color: #007bff;
+            color: var(--primary-color);
         }
 
         @media screen and (max-width: 768px) {
@@ -178,6 +189,16 @@
     </style>
 </head>
 <body>
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+<div class="theme-icon">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </div>
+        </label>
+    </div>
+    
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
@@ -189,6 +210,7 @@
     <header>
         <div class="title-container">
             <h1>Curriculum Vitae</h1>
+            <p>Take a look at my academic and research journey!</p>
             <div class="download-container">
                 <div class="download-btn">
                 <i class="fas fa-download"></i>
@@ -214,6 +236,7 @@
         <p>© Woojin Bae, 2025</p>
     </footer>
 
+    <script src="theme-switcher.js"></script>
     <script>
         // PDF.js 워커 설정
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -284,9 +307,9 @@
             } catch (error) {
                 console.error('PDF 로딩 에러:', error);
                 document.getElementById('pdf-viewer').innerHTML = `
-                    <p style="text-align: center; color: red;">PDF를 불러오는데 실패했습니다.</p>
+                    <p style="text-align: center; color: var(--primary-color);">PDF를 불러오는데 실패했습니다.</p>
                     <p style="text-align: center;">
-                        <a href="CV_WoojinBae.pdf" download style="color: blue;">
+                        <a href="CV_WoojinBae.pdf" download style="color: var(--primary-color);">
                             PDF 직접 다운로드
                         </a>
                     </p>`;
@@ -301,6 +324,14 @@
         window.addEventListener('resize', function() {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(function() {
+                document.getElementById('pdf-viewer').innerHTML = '';
+                loadPDF();
+            }, 300);
+        });
+        
+        // 테마 변경시 PDF 다시 로드
+        document.getElementById('checkbox').addEventListener('change', function() {
+            setTimeout(function() {
                 document.getElementById('pdf-viewer').innerHTML = '';
                 loadPDF();
             }, 300);

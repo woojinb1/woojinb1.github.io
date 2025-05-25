@@ -1,3 +1,105 @@
+:root {
+    /* Light mode (default) */
+    --bg-color: #f8f9fa;
+    --bg-secondary: #ffffff;
+    --text-color: #333;
+    --text-secondary: #555;
+    --text-muted: #666;
+    --border-color: #eee;
+    --border-secondary: #f0f0f0;
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --nav-bg: #333;
+    --nav-text: white;
+    --nav-hover: #555;
+    --box-shadow: rgba(0, 0, 0, 0.05);
+    --box-shadow-hover: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-color: #f0f0f0;
+    --text-secondary: #cccccc;
+    --text-muted: #999999;
+    --border-color: #444;
+    --border-secondary: #333;
+    --primary-color: #3a95ff;
+    --primary-hover: #5cacff;
+    --nav-bg: #222;
+    --nav-text: #f0f0f0;
+    --nav-hover: #444;
+    --box-shadow: rgba(0, 0, 0, 0.2);
+    --box-shadow-hover: rgba(0, 0, 0, 0.3);
+}
+
+/* Theme toggle button */
+.theme-switch-wrapper {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    z-index: 100;
+}
+
+.theme-switch {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.theme-icon {
+    font-size: 20px;
+    color: #ffb700;
+    background-color: var(--bg-secondary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px var(--box-shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-secondary);
+}
+
+.theme-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px var(--box-shadow-hover);
+}
+
+/* Show sun icon when in light mode, moon icon when in dark mode */
+.theme-icon .fa-sun {
+    display: block;
+    color: #ffb700;
+}
+
+.theme-icon .fa-moon {
+    display: none;
+    color: #8db6fb;
+}
+
+[data-theme="dark"] .theme-icon {
+    background-color: var(--bg-secondary);
+}
+
+[data-theme="dark"] .theme-icon .fa-sun {
+    display: none;
+}
+
+[data-theme="dark"] .theme-icon .fa-moon {
+    display: block;
+}
+
+/* Remove old slider styles */
+.slider, .slider.round, .slider:before, .slider-icons {
+    display: none;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,16 +107,19 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #f8f9fa;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 nav {
     /* 네비게이션 바의 기본 스타일 */
-    background-color: #333; /* 어두운 회색 배경 */
+    background-color: var(--nav-bg); /* 어두운 회색 배경 */
     padding: 0.8rem 2rem; /* 위아래 및 좌우 여백 추가 */
     margin-bottom: 0; /* 아래쪽 마진 제거 */
     width: 100%; /* 전체 너비 사용 */
     box-sizing: border-box; /* 패딩을 너비에 포함 */
+    transition: background-color 0.3s ease;
 }
 
 nav ul {
@@ -36,41 +141,44 @@ nav ul li {
 
 nav ul li a {
     /* 메뉴 링크 스타일 */
-    color: white; /* 흰색 텍스트 */
+    color: var(--nav-text); /* 흰색 텍스트 */
     text-decoration: none; /* 밑줄 제거 */
     padding: 12px 25px; /* 링크 영역 패딩 */
     display: block; /* 블록 레벨 요소로 표시 */
-    transition: background-color 0.2s ease; /* 배경색 변화 애니메이션 */
+    transition: background-color 0.2s ease, color 0.2s ease; /* 배경색 변화 애니메이션 */
     font-size: 1.1em; /* 글자 크기 */
 }
 
 nav ul li a:hover {
     /* 마우스 오버 시 스타일 */
-    background-color: #555; /* 밝은 회색으로 배경색 변경 */
+    background-color: var(--nav-hover); /* 밝은 회색으로 배경색 변경 */
 }
 
 nav ul li a:visited {
     /* 방문한 링크 스타일 */
-    color: white; /* 흰색 유지 */
+    color: var(--nav-text); /* 흰색 유지 */
 }
 
 header {
     text-align: left;
     padding: 2rem;
-    background-color: white;
-    border-bottom: 1px solid #eee;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 header h1 {
     font-weight: bold;
     margin: 0;
-    color: #333;
+    color: var(--text-color);
     font-size: 2em;
+    transition: color 0.3s ease;
 }
 
 header p {
-    color: #666;
+    color: var(--text-secondary);
     margin: 0.5rem 0 0 0;
+    transition: color 0.3s ease;
 }
 
 main {
@@ -88,31 +196,33 @@ main p {
     margin: 10px 0;
     hyphens: none;
     overflow-wrap: break-word;
-    color: #555;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
 }
 
 section {
     margin-bottom: 1.5rem;
     padding: 1.5rem;
-    background: white;
+    background: var(--bg-secondary);
     border-radius: 12px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid #eee;
+    box-shadow: 0 2px 15px var(--box-shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    border: 1px solid var(--border-color);
 }
 
 section:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px var(--box-shadow-hover);
 }
 
 section h3 {
     margin: 0 0 1rem 0;
-    color: #222;
+    color: var(--text-color);
     font-size: 1.2em;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 2px solid var(--border-secondary);
     padding-bottom: 0.8rem;
     width: 100%;
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .custom-width {
@@ -124,17 +234,19 @@ section h3 {
 hr {
     border: 0;
     height: 1px;
-    background-color: #eee;
+    background-color: var(--border-color);
     width: 100%;
+    transition: background-color 0.3s ease;
 }
 
 .container {
-    background-color: white;
+    background-color: var(--bg-secondary);
     padding: 2rem;
     border-radius: 15px;
     margin: 2rem auto;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 15px var(--box-shadow);
     max-width: 1200px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .profile-picture {
@@ -148,27 +260,28 @@ hr {
 
 .small-text {
     font-size: 0.8em;
-    color: #666;
+    color: var(--text-muted);
     font-weight: normal;
+    transition: color 0.3s ease;
 }
 
 a {
-    color: #007bff;
+    color: var(--primary-color);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 a:hover {
-    color: #0056b3;
+    color: var(--primary-hover);
 }
 
 a:visited {
-    color: #007bff;
+    color: var(--primary-color);
 }
 
 .btn {
     padding: 8px 20px;
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white !important;
     text-decoration: none;
     border-radius: 6px;
@@ -179,7 +292,7 @@ a:visited {
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: var(--primary-hover);
     color: white !important;
 }
 
@@ -190,9 +303,10 @@ a:visited {
 .copyright {
     text-align: center;
     padding: 1rem 0;
-    color: #666;
+    color: var(--text-muted);
     font-size: 0.9em;
     margin-top: auto;
+    transition: color 0.3s ease;
 }
 
 .copyright p {
@@ -210,9 +324,10 @@ a:visited {
 .news-list li {
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #f0f0f0;
-    color: #555;
+    border-bottom: 1px solid var(--border-secondary);
+    color: var(--text-secondary);
     line-height: 1.6;
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .news-list li:last-child {
@@ -223,22 +338,24 @@ a:visited {
 
 .news-date {
     font-weight: bold;
-    color: #007bff;
+    color: var(--primary-color);
     margin-right: 0.5rem;
+    transition: color 0.3s ease;
 }
 
 /* News section fixed header styles */
 .news-header {
     position: sticky;
     top: 0;
-    background-color: white;
+    background-color: var(--bg-secondary);
     padding: 10px 0;
     margin-top: 0;
     z-index: 100;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--border-secondary);
     text-align: left;
     align-self: flex-start;
     width: 100%;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Photo Gallery Styles */
@@ -251,14 +368,15 @@ a:visited {
 .gallery-header {
     position: sticky;
     top: 0;
-    background-color: white;
+    background-color: var(--bg-secondary);
     padding: 10px 0;
     margin-top: 0;
     z-index: 100;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--border-secondary);
     text-align: left;
     align-self: flex-start;
     width: 100%;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .photo-gallery {
@@ -268,7 +386,7 @@ a:visited {
     overflow-x: auto;
     padding: 10px 0 30px 0;
     scrollbar-width: thin;
-    scrollbar-color: #007bff #f0f0f0;
+    scrollbar-color: var(--primary-color) var(--border-secondary);
     width: 100%; /* 너비를 100%로 설정 */
 }
 
@@ -298,12 +416,13 @@ a:visited {
     margin-top: 10px;
     text-align: center;
     font-size: 0.9em;
-    color: #555;
+    color: var(--text-secondary);
     line-height: 1.4;
     padding: 0 10px;
     box-sizing: border-box;
     word-break: break-word;
     white-space: normal;
+    transition: color 0.3s ease;
 }
 
 @media screen and (min-width: 1025px) {
@@ -321,17 +440,19 @@ a:visited {
 }
 
 .photo-gallery::-webkit-scrollbar-track {
-    background: #f0f0f0;
+    background: var(--border-secondary);
     border-radius: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .photo-gallery::-webkit-scrollbar-thumb {
-    background: #007bff;
+    background: var(--primary-color);
     border-radius: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .photo-gallery::-webkit-scrollbar-thumb:hover {
-    background: #0056b3;
+    background: var(--primary-hover);
 }
 
 @media screen and (max-width: 768px) {
@@ -467,5 +588,44 @@ a:visited {
 
     nav ul li a {
         padding: 15px 30px;
+    }
+}
+
+/* Add additional dark mode styles */
+[data-theme="dark"] img {
+    filter: brightness(0.9);
+}
+
+/* Remove iframe inversion */
+[data-theme="dark"] iframe {
+    filter: none;
+}
+
+[data-theme="dark"] a[style*="color: black"] {
+    color: var(--text-color) !important;
+}
+
+[data-theme="dark"] pre, [data-theme="dark"] code {
+    background-color: #2d2d2d;
+    color: #e6e6e6;
+    border-color: #444;
+}
+
+/* Remove PDF canvas inversion */
+[data-theme="dark"] .pdf-container canvas {
+    filter: none;
+}
+
+/* Media query for mobile dark mode switch positioning */
+@media screen and (max-width: 768px) {
+    .theme-switch-wrapper {
+        right: 15px;
+        top: 15px;
+    }
+    
+    .theme-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
     }
 }
