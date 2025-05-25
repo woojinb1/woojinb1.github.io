@@ -1,6 +1,7 @@
 // Theme switcher functionality
 document.addEventListener('DOMContentLoaded', function() {
     const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+    const themeIcon = document.querySelector('.theme-icon');
     const currentTheme = localStorage.getItem('theme');
 
     // If user has previously selected a theme, apply it
@@ -20,18 +21,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Function to switch theme
-    function switchTheme(e) {
+    function switchTheme() {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         
-        if (isDark) {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-            toggleSwitch.checked = false;
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-            toggleSwitch.checked = true;
-        }
+        // Add click animation
+        themeIcon.classList.add('clicked');
+        
+        setTimeout(() => {
+            if (isDark) {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                toggleSwitch.checked = false;
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                toggleSwitch.checked = true;
+            }
+            
+            // Remove animation class after theme change
+            setTimeout(() => {
+                themeIcon.classList.remove('clicked');
+            }, 200);
+        }, 150);
     }
 
     // Add event listener for theme switch - click on label instead of change event

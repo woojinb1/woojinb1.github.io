@@ -40,6 +40,7 @@
     right: 30px;
     top: 20px;
     z-index: 100;
+    transition: all 0.3s ease;
 }
 
 .theme-switch {
@@ -70,6 +71,12 @@
 .theme-icon:hover {
     transform: scale(1.1);
     box-shadow: 0 4px 8px var(--box-shadow-hover);
+}
+
+/* Animation for the button when clicked */
+.theme-icon.clicked {
+    transform: scale(0.85);
+    transition: transform 0.15s ease;
 }
 
 /* Show sun icon when in light mode, moon icon when in dark mode */
@@ -619,13 +626,22 @@ a:visited {
 /* Media query for mobile dark mode switch positioning */
 @media screen and (max-width: 768px) {
     .theme-switch-wrapper {
-        right: 15px;
-        top: 15px;
+        position: fixed;
+        right: 20px;
+        top: auto;
+        bottom: 20px;
+        z-index: 1000;
     }
     
     .theme-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 18px;
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+        box-shadow: 0 2px 10px var(--box-shadow-hover);
+        opacity: 0.9;
+    }
+    
+    .theme-icon:active {
+        transform: scale(0.95);
     }
 }
