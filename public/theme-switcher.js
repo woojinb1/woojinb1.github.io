@@ -3,49 +3,43 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
     const themeIcon = document.querySelector('.theme-icon');
     const themeSwitchWrapper = document.querySelector('.theme-switch-wrapper');
-    const currentTheme = localStorage.getItem('theme');
     let hideTimeout;
     let isMobile = window.innerWidth <= 768;
 
-    // If user has previously selected a theme, apply it
-    if (currentTheme) {
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        
-        if (currentTheme === 'dark') {
-            toggleSwitch.checked = true;
-        }
+    // 초기 체크박스 상태 설정
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        toggleSwitch.checked = true;
     } else {
-        // Check if user's system preferences are set to dark mode
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            toggleSwitch.checked = true;
-            localStorage.setItem('theme', 'dark');
-        }
+        toggleSwitch.checked = false;
     }
 
-    // Function to switch theme
+    // Function to switch theme - 즉시 적용
     function switchTheme() {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         
-        // Add click animation
+        // 클릭 애니메이션 추가
         themeIcon.classList.add('clicked');
         
+        if (isDark) {
+            // 라이트 모드로 전환
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.style.backgroundColor = '';
+            document.documentElement.style.color = '';
+            toggleSwitch.checked = false;
+            localStorage.setItem('theme', 'light');
+        } else {
+            // 다크 모드로 전환
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.documentElement.style.backgroundColor = '#1a1a1a';
+            document.documentElement.style.color = '#f0f0f0';
+            toggleSwitch.checked = true;
+            localStorage.setItem('theme', 'dark');
+        }
+        
+        // 애니메이션 제거
         setTimeout(() => {
-            if (isDark) {
-                document.documentElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-                toggleSwitch.checked = false;
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-                toggleSwitch.checked = true;
-            }
-            
-            // Remove animation class after theme change
-            setTimeout(() => {
-                themeIcon.classList.remove('clicked');
-            }, 200);
-        }, 150);
+            themeIcon.classList.remove('clicked');
+        }, 200);
     }
 
     // Function to show the theme toggle button
@@ -98,6 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.theme-switch').addEventListener('click', function(e) {
         // Prevent the default checkbox behavior
         e.preventDefault();
+        
+        // 테마 전환 즉시 실행
         switchTheme();
         
         // Only reset timer on button click

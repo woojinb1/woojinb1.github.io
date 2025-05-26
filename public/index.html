@@ -1,5 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
+<script>
+// 즉시 실행 테마 설정 - HTML 파싱 전 실행
+(function() {
+    try {
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !currentTheme) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    } catch (e) {
+        console.error('테마 설정 오류:', e);
+    }
+})();
+</script>
 <title>Woojin Bae</title>
 <head>
     <meta name="google-site-verification" content="8HivjVZECe_VFWkOSaXa7WUOOKeuq3uVmyUt5viH0H4" />
@@ -8,19 +24,6 @@
     <meta name="author" content="Woojin Bae" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        // 저장된 테마 확인 및 즉시 적용
-        (function() {
-            const currentTheme = localStorage.getItem('theme');
-            if (currentTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            } else if (currentTheme === 'light') {
-                document.documentElement.setAttribute('data-theme', 'light');
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        })();
-    </script>
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://woojinb.vercel.app">
