@@ -86,9 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Show the button on scroll or touch events
-    window.addEventListener('scroll', showToggleButton);
-    window.addEventListener('touchstart', showToggleButton);
+
     
     // Show the button when hovering over it (even when faded)
     themeSwitchWrapper.addEventListener('mouseenter', function() {
