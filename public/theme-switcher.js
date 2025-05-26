@@ -86,12 +86,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-
-    
-    // Show the button when hovering over it (even when faded)
+    // Show the button when hovering over it (desktop only)
     themeSwitchWrapper.addEventListener('mouseenter', function() {
-        themeSwitchWrapper.classList.remove('fade-out');
-        themeSwitchWrapper.classList.remove('hidden');
+        if (!isMobile) {
+            themeSwitchWrapper.classList.remove('fade-out');
+            themeSwitchWrapper.classList.remove('hidden');
+        }
     });
     
     // Add event listener for theme switch - click on label instead of change event
@@ -99,7 +99,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Prevent the default checkbox behavior
         e.preventDefault();
         switchTheme();
-        showToggleButton(); // Reset the timer when clicking the button
+        
+        // Only reset timer on button click
+        if (isMobile) {
+            showToggleButton();
+        }
     });
     
     // Initial auto-hide for mobile
