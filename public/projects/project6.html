@@ -22,6 +22,27 @@
     <title>Project Details</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        .viewer-container {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            margin: 20px auto;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            position: relative;
+            background: var(--bg-color);
+        }
+        
+        
+        
+        #viewer-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <div class="theme-switch-wrapper">
@@ -44,6 +65,14 @@
     </nav>
     <header>
         <h1>Autonomous Mn-doped Perovskite Nanocrystals Synthesis by a Self-Driving Lab</h1>
+        
+        <!-- 3D Viewer Section -->
+        <div class="viewer-container">
+            <canvas id="viewer-canvas"></canvas>
+        </div>
+        <p style="color: #808080; font-style: italic; text-align: center; margin-top: 10px; font-size: 0.9em;">
+            (Project in progress - actual results may differ)
+        </p>
     </header>
     <hr>
     <main>
@@ -73,5 +102,207 @@
         <p>© Woojin Bae, 2025</p>
     </footer>
     <script src="../theme-switcher.js"></script>
+    
+    <!-- 3D Viewer Script -->
+    <script>
+        let scene, camera, renderer, controls;
+        let atoms = [];
+        let bonds = [];
+        let isRotating = true;
+        let isWireframe = false;
+        
+        // Initialize 3D viewer
+        function initViewer() {
+            const canvas = document.getElementById('viewer-canvas');
+            const container = canvas.parentElement;
+            
+            // Scene setup
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a1a);
+            
+            // Camera setup
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(0, 0, 100);
+            
+            // Renderer setup
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            
+            // Lighting for 3D effect
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+            
+            const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
+            directionalLight2.position.set(-1, -1, -1);
+            scene.add(directionalLight2);
+            
+            // Add a simple grid for reference
+            const gridHelper = new THREE.GridHelper(20, 20, 0x444444, 0x222222);
+            scene.add(gridHelper);
+            
+            // Mouse controls
+            let isMouseDown = false;
+            let mouseX = 0;
+            let mouseY = 0;
+            
+            canvas.addEventListener('mousedown', (event) => {
+                isMouseDown = true;
+                mouseX = event.clientX;
+                mouseY = event.clientY;
+            });
+            
+            canvas.addEventListener('mouseup', () => {
+                isMouseDown = false;
+            });
+            
+            canvas.addEventListener('mousemove', (event) => {
+                if (isMouseDown) {
+                    const deltaX = event.clientX - mouseX;
+                    const deltaY = event.clientY - mouseY;
+                    
+                    // Rotate camera around the scene
+                    const spherical = new THREE.Spherical();
+                    spherical.setFromVector3(camera.position);
+                    spherical.theta -= deltaX * 0.01;
+                    spherical.phi += deltaY * 0.01;
+                    spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, spherical.phi));
+                    
+                    camera.position.setFromSpherical(spherical);
+                    camera.lookAt(0, 0, 0);
+                    
+                    mouseX = event.clientX;
+                    mouseY = event.clientY;
+                }
+            });
+            
+            // Zoom with mouse wheel
+            canvas.addEventListener('wheel', (event) => {
+                const zoomSpeed = 0.1;
+                const zoom = event.deltaY > 0 ? 1 + zoomSpeed : 1 - zoomSpeed;
+                camera.position.multiplyScalar(zoom);
+            });
+            
+            animate();
+        }
+        
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            if (isRotating) {
+                scene.rotation.y += 0.01;
+            }
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Load XYZ file from specified path
+        function loadXYZFile(filePath) {
+            fetch(filePath)
+                .then(response => response.text())
+                .then(content => {
+                    parseXYZContent(content);
+                })
+                .catch(error => {
+                    console.error('Error loading XYZ file:', error);
+                });
+        }
+        
+        // Parse XYZ file content
+        function parseXYZContent(content) {
+            const lines = content.trim().split('\n');
+            const atomCount = parseInt(lines[0]);
+            
+            // Clear existing atoms and bonds
+            atoms.forEach(atom => scene.remove(atom));
+            bonds.forEach(bond => scene.remove(bond));
+            atoms = [];
+            bonds = [];
+            
+            // Parse atoms (starting from line 3, line 2 is usually a comment)
+            for (let i = 2; i < 2 + atomCount && i < lines.length; i++) {
+                const parts = lines[i].trim().split(/\s+/);
+                if (parts.length >= 4) {
+                    const element = parts[0];
+                    const x = parseFloat(parts[1]);
+                    const y = parseFloat(parts[2]);
+                    const z = parseFloat(parts[3]);
+                    
+                    addAtom(element, x, y, z);
+                }
+            }
+            
+            // Keep camera at fixed distance
+            // fitCameraToAtoms();
+        }
+        
+        // Add atom to scene
+        function addAtom(element, x, y, z) {
+            const colors = {
+                'Cl': 0x00ff00, 'Br': 0x8b4513,'Mn': 0x800080, 'Cs': 0x90ee90,
+                'Pb': 0x808080
+            };
+            
+            const sizes = {
+                'Cl': 0.8, 'Br': 0.95, 'Mn': 0.8, 'Cs': 1.2, 'Pb': 1.1
+            };
+            
+            const color = colors[element] || 0x808080;
+            const size = sizes[element] || 0.7;
+            
+            const geometry = new THREE.SphereGeometry(size, 32, 32);
+            const material = new THREE.MeshLambertMaterial({ 
+                color: color,
+                wireframe: isWireframe,
+                transparent: true,
+                opacity: 0.9
+            });
+            const sphere = new THREE.Mesh(geometry, material);
+            sphere.position.set(x, y, z);
+            
+            scene.add(sphere);
+            atoms.push(sphere);
+        }
+        
+        // Fit camera to show all atoms
+        function fitCameraToAtoms() {
+            if (atoms.length === 0) return;
+            
+            const box = new THREE.Box3();
+            atoms.forEach(atom => box.expandByObject(atom));
+            
+            const center = box.getCenter(new THREE.Vector3());
+            const size = box.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const fov = camera.fov * (Math.PI / 180);
+            const cameraDistance = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.5;
+            
+            camera.position.copy(center);
+            camera.position.z += cameraDistance;
+            camera.lookAt(center);
+        }
+        
+
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const container = document.querySelector('.viewer-container');
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+        
+        // Initialize viewer when page loads
+        window.addEventListener('load', () => {
+            initViewer();
+            // Load your XYZ file here - replace 'path/to/your/file.xyz' with actual path
+            loadXYZFile('file/Mn_doped_CsPb(ClBr)3_55A_init_centered.xyz');
+        });
+    </script>
 </body>
 </html>
