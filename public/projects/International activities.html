@@ -165,7 +165,7 @@
                 zoomLevel = 2.9;
             }
             
-            const center = { lat: 37.44887, lng: 126.9517 };
+            const mapCenter = { lat: 37.44887, lng: 126.9517 };
             const asu = {lat: 33.4242, lng: -111.92389};
             const ncstate = {lat: 35.7847, lng: -78.68136};
             const kams = { lat: 38.871596625562155, lng: -99.34400590392508 };
@@ -174,12 +174,11 @@
             const umn = { lat: 44.9741038190935, lng: -93.22766412838796 };
             const hkust = { lat: 22.33767323092721, lng: 114.26389242462663 };
             const tokyo = { lat: 35.713928318109815, lng: 139.7629625039479 };
-            const kaist = { lat: 36.3728, lng: 127.3620 };
             const mataram = { lat: -8.5873241, lng: 116.0933652 };
 
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: zoomLevel,
-                center: center,
+                center: mapCenter,
             });
 
             const markers = [
@@ -203,16 +202,6 @@
                         <p>Awarded a $9000 scholarship as a STEM-specialized exchange student</p>
                         <p>Undergraduate Researcher in Abolhasani group</p>
                         <a href="https://www.abolhasanilab.com" target="_blank">Home page</a>
-                    `
-                },
-                { 
-                    position: center, 
-                    content: `
-                        <h2>Multi-dimensional Materials Chemistry Lab</h2>
-                        <h3>Seoul National University</h3>
-                        <p>Synthesized Ag cluster-based AIGS(silver indium gallium sulfide)-core</p>
-                        <p>SEI Structures Dependent Li-Morphology Characterized by cryo-TEM; developed a protocol for quantitative analysis of SEI</p>
-                        <a href="https://parklab.snu.ac.kr" target="_blank">Home page</a>
                     `
                 },
                 { 
@@ -274,15 +263,6 @@
                         <a href="https://n.news.naver.com/article/011/0004386074?sid=101" target="_blank">News Link</a>
                         <a href="https://www.mk.co.kr/news/contributors/11180690" target="_blank">News Link</a>
                         `
-                },
-                { 
-                    position: kaist, 
-                    content: `
-                        <h2>Center for Cell-Encapsulation Research</h2>
-                        <h3>Korea Advanced Institute of Science and Technology</h3>
-                        <p>Created a porous titanium oxide shell to facilitate the simple culturing of astrocytes</p>
-                        <p>Confirmed the function of encapsulated astrocytes by analyzing the length of neurons co-cultured with astrocytes</p>
-                    `
                 },
                 {
                     position: mataram,
