@@ -232,11 +232,11 @@
                     Download
                 </div>
                 <div class="dropdown-content">
-                    <a href="CV_WoojinBae.pdf" download class="dropdown-item">
+                    <a href="CV_WoojinBae_26.pdf" download class="dropdown-item">
                         <i class="fas fa-file-pdf"></i>
                         CV (Academic)
                     </a>
-                    <a href="Resume_WoojinBae.pdf" download class="dropdown-item">
+                    <a href="CV_WoojinBae_26.pdf" download class="dropdown-item">
                         <i class="fas fa-file-alt"></i>
                         Resume (Professional)
                     </a>
@@ -248,7 +248,7 @@
         <div id="pdf-viewer"></div>
     </div>
     <footer class="copyright">
-        <p>© Woojin Bae, 2025</p>
+        <p>© Woojin Bae, 2026</p>
     </footer>
 
     <script src="theme-switcher.js"></script>
@@ -278,7 +278,7 @@
         // PDF 로드 및 표시
         async function loadPDF() {
             try {
-                const loadingTask = pdfjsLib.getDocument('CV_WoojinBae.pdf');
+                const loadingTask = pdfjsLib.getDocument('CV_WoojinBae_26.pdf');
                 const pdf = await loadingTask.promise;
                 const container = document.getElementById('pdf-viewer');
 
@@ -324,7 +324,7 @@
                 document.getElementById('pdf-viewer').innerHTML = `
                     <p style="text-align: center; color: var(--primary-color);">PDF를 불러오는데 실패했습니다.</p>
                     <p style="text-align: center;">
-                        <a href="CV_WoojinBae.pdf" download style="color: var(--primary-color);">
+                        <a href="CV_WoojinBae_26.pdf" download style="color: var(--primary-color);">
                             PDF 직접 다운로드
                         </a>
                     </p>`;

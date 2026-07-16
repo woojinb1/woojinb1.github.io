@@ -19,21 +19,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Details</title>
+    <title>Retro-Forge</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
     <div class="theme-switch-wrapper">
         <label class="theme-switch" for="checkbox">
             <input type="checkbox" id="checkbox" />
-<div class="theme-icon">
+            <div class="theme-icon">
                 <i class="fas fa-sun"></i>
                 <i class="fas fa-moon"></i>
             </div>
         </label>
     </div>
-    
+
     <nav>
         <ul>
             <li><a href="../index.html">Home</a></li>
@@ -43,30 +44,37 @@
         </ul>
     </nav>
     <header>
-        <h1>Consideration on the relationship between microscopic structure and macroscopic shape according to the synthesis conditions of Hollow ZSM-5</h1>
-
+        <h1>Retro-Forge: A Multi-Step Pairwise Retrosynthesis Framework for Solid-State Materials Synthesis</h1>
+        <p>ICML 2026 Workshop Paper</p>
     </header>
     <hr>
     <main>
         <section>
             <h3>Project Overview</h3>
-            <p class="left">This study focuses on observing the microscopic structure and macroscopic morphology changes in ZSM-5 (Zeolite Socony Mobil-5) zeolites with empty internal spaces under various synthesis conditions. Based on the synthesis method of the Zhang group, we varied the crystallization temperature and the Si/Al ratio in the synthesis gel, observing the results using XRD (X-Ray Diffraction), SEM (Scanning Electron Microscopy), and TEM (Transmission Electron Microscopy). While the microscopic structure remained similar under different variables, the macroscopic morphology changed significantly. The change in variables altered the crystal formation mechanism, which is predicted to be due to Ostwald ripening and silicon leaching.</p>
+            <p class="left">
+                AI-driven materials discovery can generate promising structures at scale, but those structures remain theoretical without valid synthesis routes. Retro-Forge addresses this gap by formulating precursor prediction as a sequence of learnable pairwise reactions rather than a single-step prediction problem.
+            </p>
+            <p class="left">
+                The framework is built on a chemically valid Pairwise Reaction Dataset containing approximately 6,000 entries. A pairwise reactant prediction model is trained with synthetic data augmentation and recursively composed through tree search to produce complete, multi-step synthesis routes for solid-state materials. Under a contamination-free evaluation protocol, Retro-Forge matches state-of-the-art precursor-prediction baselines.
+            </p>
         </section>
         <section>
-            <h3>Technologies Used</h3>
+            <h3>Publication Details</h3>
             <div style="display: flex; flex-direction: column; gap: 10px;">
-                <div>TEM, SEM, PXRD</div>
-                <div>Advisor: Jonghun Kang</div>
-                <div><a href="file/학부생체험연구프로그램 소논문_정석우,배우진.pdf">view .pdf</a></div>
+                <div>Juhan Hong, Hyunsung Jang, <b>Woojin Bae</b>, Jaewon Bae, Chanyoung Park</div>
+                <div>ICML 2026 Workshop: AI4Science</div>
+                <div>This work was conducted at NanoForge AI.</div>
+                <div>
+                    <a href="https://icml.cc/virtual/2026/73585" target="_blank" rel="noopener noreferrer">view publication</a>
+                </div>
             </div>
         </section>
         <hr>
         <a href="../projects.html" class="btn">Back to Projects</a>
     </main>
     <footer class="copyright">
-        <p>© Woojin Bae, 2025</p>
+        <p>© Woojin Bae, 2026</p>
     </footer>
-    
     <script src="../theme-switcher.js"></script>
 </body>
 </html>
