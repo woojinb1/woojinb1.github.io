@@ -51,6 +51,10 @@ html[data-theme="dark"] {
 }
 
 .theme-switch {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    font: inherit;
     display: inline-block;
     position: relative;
     cursor: pointer;
@@ -254,6 +258,8 @@ hr {
 }
 
 .container {
+    box-sizing: border-box;
+    width: 100%;
     background-color: var(--bg-secondary);
     padding: 2rem;
     border-radius: 15px;
@@ -603,6 +609,16 @@ a:visited {
     nav ul li a {
         padding: 15px 30px;
     }
+}
+
+/* Keep navigation and controls usable with a keyboard and reduced motion. */
+:focus-visible { outline: 3px solid var(--primary-color); outline-offset: 4px; }
+.skip-link { position: fixed; top: -100px; left: 12px; z-index: 2000; padding: 12px; background: var(--bg-secondary); }
+.skip-link:focus { top: 12px; }
+.news-container:hover, .gallery-container:hover { transform: none; }
+.theme-icon { width: 44px; height: 44px; }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
 
 /* Add additional dark mode styles */

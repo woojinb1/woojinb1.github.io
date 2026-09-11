@@ -1,38 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-<script>
-// 즉시 실행 테마 설정 - HTML 파싱 전 실행
-(function() {
-    try {
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !currentTheme) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    } catch (e) {
-        console.error('테마 설정 오류:', e);
-    }
-})();
-</script>
 <head>
+    <script src="../theme-init.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Details</title>
+    <title>SEI Structures Dependent Li-Morphology Characterized by cryo-TEM | Woojin Bae</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-<div class="theme-icon">
-                <i class="fas fa-sun"></i>
-                <i class="fas fa-moon"></i>
-            </div>
-        </label>
+        <button class="theme-switch" type="button" aria-label="Dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true"><i class="fas fa-sun"></i><i class="fas fa-moon"></i></span></button>
     </div>
     
     <nav>
@@ -49,7 +29,7 @@
         <img src="file/Workflow.jpg" alt="Profile Picture" class="profile-picture" style="display: block; margin: 0 auto; width: 100%; height: auto;">
     </header>
     <hr>
-    <main>
+    <main id="main-content">
         <section>
             <h3>Project Overview</h3>
             <p class="left">In this work, we developed an algorithm that can qualitatively analyze SEI layers in <b>cryo-TEM</b> images, which establishes systematic procedure for quantitative analysis of crystal
@@ -72,6 +52,6 @@
     <footer class="copyright">
         <p>© Woojin Bae, 2026</p>
     </footer>
-    <script src="../theme-switcher.js"></script>
+    <script src="../theme-controls.js"></script>
 </body>
 </html>

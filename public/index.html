@@ -1,23 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-<script>
-// 즉시 실행 테마 설정 - HTML 파싱 전 실행
-(function() {
-    try {
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !currentTheme) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    } catch (e) {
-        console.error('테마 설정 오류:', e);
-    }
-})();
-</script>
-<title>Woojin Bae</title>
 <head>
+    <script src="theme-init.js"></script>
     <meta name="google-site-verification" content="8HivjVZECe_VFWkOSaXa7WUOOKeuq3uVmyUt5viH0H4" />
     <meta name="description" content="Woojin Bae's personal website. Chemical engineering student.">
     <meta name="keywords" content="Woojin Bae, 배우진, chemical engineering, SNU, nanomaterials, perovskite" />
@@ -39,20 +23,15 @@
     <meta property="twitter:description" content="Woojin Bae's personal website. Chemical engineering student.">
     <meta property="twitter:image" content="https://woojinb.vercel.app/thumnail.jpeg">
 
-    <title>My Portfolio</title>
+    <title>Woojin Bae | Materials Science &amp; AI</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <div class="theme-icon">
-                <i class="fas fa-sun"></i>
-                <i class="fas fa-moon"></i>
-            </div>
-        </label>
+        <button class="theme-switch" type="button" aria-label="Dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true"><i class="fas fa-sun"></i><i class="fas fa-moon"></i></span></button>
     </div>
     
     <nav>
@@ -70,13 +49,13 @@
             &nbsp;|&nbsp;
             <a href="projects/file/Woojin Bae.vcf" download title="Download vCard" style="color: black;"><i class="fas fa-address-card"></i></a>
             &nbsp;
-            <a href="https://github.com/woojinb1" target="_blank" style="color: black;"><i class="fab fa-github"></i></a>
+            <a aria-label="GitHub" href="https://github.com/woojinb1" target="_blank" style="color: black;" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
             &nbsp;
-            <a href="https://www.linkedin.com/in/woojinb1/" target="_blank" style="color: black;"><i class="fab fa-linkedin"></i></a>
+            <a aria-label="LinkedIn" href="https://www.linkedin.com/in/woojinb1/" target="_blank" style="color: black;" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
         </p>
     </header>
-    <main class="container">
-        <img src="img.jpeg" alt="Profile Picture" class="profile-picture" style="display: block; margin: 0 auto;">
+    <main id="main-content" class="container">
+        <img src="profile-small.jpg" width="450" height="600" alt="Woojin Bae" class="profile-picture" style="display: block; margin: 0 auto;">
         <p>I am Woojin Bae, a Master's student in Chemical and Biological Engineering at
             <a class="url" href="https://www.snu.ac.kr/index.html">Seoul National University</a>.
             My research interests lie at the intersection of artificial intelligence and materials science, with a focus on AI-driven materials discovery, synthesis planning, and autonomous experimentation.
@@ -88,7 +67,7 @@
         </p>
         
     </main>
-    <main class="container news-container">
+    <section class="container news-container">
         <h2 style="margin-top: 0;" class="news-header">News</h2>
         <ul class="news-list">
             <li><span class="news-date">2026.03</span> Joined NanoForge AI as a Researcher!</li>
@@ -97,45 +76,45 @@
             <li><span class="news-date">2025.01</span> Starting my exchange semester at North Carolina State University. Go Pack! 🐺</li>
             <li><span class="news-date">2024.11</span> Attending Tokyo Forum 2024 held by the UTokyo! 🇯🇵</li>
         </ul>
-    </main>
+    </section>
     
-    <main class="container gallery-container">
+    <section class="container gallery-container">
         <h2 style="margin-top: 0;" class="gallery-header">Life away from my laptop</h2>
         
         <div class="photo-gallery">
             <div class="gallery-item">
-                <img src="gallery/NCSU.jpeg" alt="North Carolina State University" class="gallery-image">
+                <img src="gallery/NCSU-small.jpg" loading="lazy" decoding="async" width="640" height="400" alt="North Carolina State University" class="gallery-image">
                 <p class="caption">North Carolina State University<br>Exchange Program (2025)</p>
             </div>
             
             <div class="gallery-item">
-                <img src="gallery/backpacking.jpeg" alt="Backpacking trip" class="gallery-image">
+                <img src="gallery/backpacking-small.jpg" loading="lazy" decoding="async" width="640" height="400" alt="Backpacking trip" class="gallery-image">
                 <p class="caption">Backpacking adventure<br>Spain (2024)</p>
             </div>
             
             <div class="gallery-item">
-                <img src="gallery/SNUin.jpeg" alt="SNU Innovation Program" class="gallery-image">
+                <img src="gallery/SNUin-small.jpg" loading="lazy" decoding="async" width="640" height="400" alt="SNU Innovation Program" class="gallery-image">
                 <p class="caption">SNU in EU<br>Brussels School of Governance, Belgium (2022)</p>
             </div>
 
             <div class="gallery-item">
-                <img src="gallery/tokyo.JPG" alt="Tokyo Forum" class="gallery-image">
+                <img src="gallery/tokyo-small.jpg" loading="lazy" decoding="async" width="640" height="400" alt="Tokyo Forum" class="gallery-image">
                 <p class="caption">Tokyo Forum 2024<br>UTokyo, Japan (2024)</p>
             </div>
 
             <div class="gallery-item">
-                <img src="gallery/kams.jpg" alt="KAMS Meeting" class="gallery-image">
+                <img src="gallery/kams-small.jpg" loading="lazy" decoding="async" width="640" height="400" alt="KAMS Meeting" class="gallery-image">
                 <p class="caption">Kansas Academy of Mathmatics and Science<br>Hays, KS, USA (2018)</p>
             </div>
             
             
         </div>
-    </main>
+    </section>
     
     <footer class="copyright">
         <p>© Woojin Bae, 2026</p>
     </footer>
     
-    <script src="theme-switcher.js"></script>
+    <script src="theme-controls.js"></script>
 </body>
 </html>

@@ -1,218 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-<script>
-// 즉시 실행 테마 설정 - HTML 파싱 전 실행
-(function() {
-    try {
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !currentTheme) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    } catch (e) {
-        console.error('테마 설정 오류:', e);
-    }
-})();
-</script>
 <head>
+    <script src="theme-init.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <!-- PDF.js 파일들 추가 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf_viewer.min.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .pdf-container {
-            flex: 1;
-            width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: var(--bg-color);
-            transition: background-color 0.3s ease;
-        }
-
-        #pdf-viewer {
-            width: 100%;
-            max-width: 1000px;
-            height: calc(100vh - 200px);
-            overflow-y: auto;
-            background: var(--bg-secondary);
-            box-shadow: 0 0 10px var(--box-shadow);
-            padding: 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .canvas-container {
-            display: flex;
-            justify-content: center;
-            margin: 10px 0;
-        }
-
-        canvas {
-            max-width: 100%;
-            height: auto !important;
-            border-radius: 5px;
-            box-shadow: 0 0 5px var(--box-shadow);
-        }
-
-        /* 모바일 환경에서의 스타일 */
-        @media screen and (max-width: 768px) {
-            .pdf-container {
-                padding: 10px;
-            }
-            #pdf-viewer {
-                height: calc(100vh - 250px);
-                padding: 10px;
-            }
-        }
-
-        /* 헤더 스타일도 styles.css와 일치하도록 수정 */
-        header {
-            padding-right: 160px;  /* 버튼 너비 + 여백만큼 패딩 추가 */
-            position: relative;  /* 명시적으로 relative 설정 */
-        }
-
-        .title-container {
-            position: relative;
-            padding-right: 160px;  /* 버튼을 위한 공간 확보 */
-        }
-
-        header h1 {
-            font-weight: bold;
-            margin: 0;
-            color: var(--text-color);
-        }
-
-        header p {
-            margin: 5px 0;
-            color: var(--text-secondary);
-            max-width: 600px;  /* 문단 최대 너비 설정 */
-            line-height: 1.4;  /* 줄 간격 조정 */
-            word-wrap: break-word; /* 단어 감싸기 */
-            margin-bottom: 10px; /* 아래쪽 여백 추가 */
-            transition: color 0.3s ease;
-        }
-
-        .download-btn {
-            background-color: var(--primary-color);
-            padding: 8px 16px;
-            border-radius: 5px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: background-color 0.3s;
-            font-size: 0.9em;
-            cursor: pointer;
-            color: white;
-            text-decoration: none;
-        }
-
-        .download-btn:hover {
-            background-color: var(--primary-hover);
-            color: white;
-            text-decoration: none;
-        }
-
-        .download-btn i {
-            font-size: 1.1em;
-        }
-
-        /* 드롭다운 메뉴 스타일 */
-        .download-container {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: var(--bg-secondary);
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px var(--box-shadow);
-            border-radius: 5px;
-            z-index: 1;
-            top: 100%;
-            right: 0;
-            margin-top: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        /* 클릭 시 보이는 클래스 */
-        .show-dropdown {
-            display: block;
-        }
-
-        .dropdown-item {
-            color: var(--text-color);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .dropdown-item:hover {
-            background-color: var(--border-secondary);
-            border-radius: 5px;
-        }
-
-        .dropdown-item i {
-            font-size: 1.1em;
-            color: var(--primary-color);
-        }
-
-        @media screen and (max-width: 768px) {
-            header {
-                padding-right: 15px;
-            }
-            
-            .title-container {
-                margin-bottom: 50px;  /* 버튼 높이만큼 마진 추가 */
-            }
-
-            .download-container, .download-btn {
-                position: absolute;
-                right: 0;
-                top: 100%;
-                transform: translateY(10px);
-                font-size: 0.85em;
-            }
-
-            .dropdown-content {
-                top: 100%;
-                right: 0;
-            }
-        }
-    </style>
+    <style>.cv-content { padding: 1.5rem; } .cv-preview { width: 100%; height: 80vh; border: 1px solid var(--border-color); margin-top: 1rem; } .cv-content .btn { margin: .5rem .5rem .5rem 0; }</style>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-<div class="theme-icon">
-                <i class="fas fa-sun"></i>
-                <i class="fas fa-moon"></i>
-            </div>
-        </label>
+        <button class="theme-switch" type="button" aria-label="Dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true"><i class="fas fa-sun"></i><i class="fas fa-moon"></i></span></button>
     </div>
     
     <nav>
@@ -223,134 +23,19 @@
             <li><a href="publications.html">Publications</a></li>
         </ul>
     </nav>
-    <header>
-        <div class="title-container">
-            <h1>Curriculum Vitae</h1>
-            <div class="download-container">
-                <div class="download-btn">
-                <i class="fas fa-download"></i>
-                    Download
-                </div>
-                <div class="dropdown-content">
-                    <a href="CV_WoojinBae_26.pdf" download class="dropdown-item">
-                        <i class="fas fa-file-pdf"></i>
-                        CV (Academic)
-                    </a>
-                    <a href="CV_WoojinBae_26.pdf" download class="dropdown-item">
-                        <i class="fas fa-file-alt"></i>
-                        Resume (Professional)
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
-    <div class="pdf-container">
-        <div id="pdf-viewer"></div>
-    </div>
+    <header><h1>Curriculum Vitae</h1></header>
+    <main id="main-content" class="cv-content">
+        <p>Woojin Bae — Master's student in Chemical and Biological Engineering at Seoul National University. Research interests: AI-driven materials discovery, synthesis planning, and autonomous experimentation.</p>
+        <a class="btn" href="CV_WoojinBae_26.pdf" download>Download CV (PDF)</a>
+        <a class="btn" href="CV_WoojinBae_26.pdf" target="_blank" rel="noopener noreferrer">Open CV in a new tab</a>
+        <p>If the preview is unavailable, use the links above to read the CV in your preferred PDF reader.</p>
+        <iframe class="cv-preview" src="CV_WoojinBae_26.pdf" title="Woojin Bae curriculum vitae PDF"></iframe>
+    </main>
     <footer class="copyright">
         <p>© Woojin Bae, 2026</p>
     </footer>
 
-    <script src="theme-switcher.js"></script>
-    <script>
-        // PDF.js 워커 설정
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    <script src="theme-controls.js"></script>
 
-        // 드롭다운 토글 기능
-        document.addEventListener('DOMContentLoaded', function() {
-            const downloadBtn = document.querySelector('.download-btn');
-            const dropdownContent = document.querySelector('.dropdown-content');
-            
-            // 다운로드 버튼 클릭 시 드롭다운 토글
-            downloadBtn.addEventListener('click', function(e) {
-                e.stopPropagation(); // 이벤트 버블링 방지
-                dropdownContent.classList.toggle('show-dropdown');
-            });
-            
-            // 페이지 다른 곳 클릭 시 드롭다운 닫기
-            document.addEventListener('click', function(e) {
-                if (!downloadBtn.contains(e.target)) {
-                    dropdownContent.classList.remove('show-dropdown');
-                }
-            });
-        });
-
-        // PDF 로드 및 표시
-        async function loadPDF() {
-            try {
-                const loadingTask = pdfjsLib.getDocument('CV_WoojinBae_26.pdf');
-                const pdf = await loadingTask.promise;
-                const container = document.getElementById('pdf-viewer');
-
-                // 레티나 디스플레이 대응
-                const pixelRatio = window.devicePixelRatio || 1;
-                
-                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                    const page = await pdf.getPage(pageNum);
-                    
-                    // 기본 스케일 증가 및 레티나 디스플레이 대응
-                    const viewerWidth = container.clientWidth;
-                    const viewport = page.getViewport({ scale: 1 });
-                    const scale = (viewerWidth / viewport.width) * 1.5; // 기본 스케일 1.5배 증가
-                    const scaledViewport = page.getViewport({ scale: scale * pixelRatio });
-
-                    const canvasContainer = document.createElement('div');
-                    canvasContainer.className = 'canvas-container';
-                    container.appendChild(canvasContainer);
-
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d', { alpha: false });
-
-                    // 캔버스 크기 설정 (레티나 대응)
-                    canvas.width = scaledViewport.width;
-                    canvas.height = scaledViewport.height;
-                    canvas.style.width = `${scaledViewport.width / pixelRatio}px`;
-                    canvas.style.height = `${scaledViewport.height / pixelRatio}px`;
-
-                    canvasContainer.appendChild(canvas);
-
-                    // 렌더링 품질 향상 설정
-                    const renderContext = {
-                        canvasContext: context,
-                        viewport: scaledViewport,
-                        enableWebGL: true,
-                        renderInteractiveForms: true,
-                    };
-
-                    await page.render(renderContext).promise;
-                }
-            } catch (error) {
-                console.error('PDF 로딩 에러:', error);
-                document.getElementById('pdf-viewer').innerHTML = `
-                    <p style="text-align: center; color: var(--primary-color);">PDF를 불러오는데 실패했습니다.</p>
-                    <p style="text-align: center;">
-                        <a href="CV_WoojinBae_26.pdf" download style="color: var(--primary-color);">
-                            PDF 직접 다운로드
-                        </a>
-                    </p>`;
-            }
-        }
-
-        // 페이지 로드 시 PDF 로드
-        window.addEventListener('load', loadPDF);
-
-        // 창 크기 변경 시 PDF 다시 로드 (디바운스 처리)
-        let resizeTimeout;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(function() {
-                document.getElementById('pdf-viewer').innerHTML = '';
-                loadPDF();
-            }, 300);
-        });
-        
-        // 테마 변경시 PDF 다시 로드
-        document.getElementById('checkbox').addEventListener('change', function() {
-            setTimeout(function() {
-                document.getElementById('pdf-viewer').innerHTML = '';
-                loadPDF();
-            }, 300);
-        });
-    </script>
 </body>
 </html>

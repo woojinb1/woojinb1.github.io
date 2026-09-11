@@ -1,38 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-<script>
-// 즉시 실행 테마 설정 - HTML 파싱 전 실행
-(function() {
-    try {
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !currentTheme) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    } catch (e) {
-        console.error('테마 설정 오류:', e);
-    }
-})();
-</script>
 <head>
+    <script src="../theme-init.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Details</title>
+    <title>Festival Messenger | Woojin Bae</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-<div class="theme-icon">
-                <i class="fas fa-sun"></i>
-                <i class="fas fa-moon"></i>
-            </div>
-        </label>
+        <button class="theme-switch" type="button" aria-label="Dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true"><i class="fas fa-sun"></i><i class="fas fa-moon"></i></span></button>
     </div>
     
     <nav>
@@ -49,7 +29,7 @@
         <img src="file/Festival Messenger.png" alt="Profile Picture" class="profile-picture" style="display: block; margin: 0 auto; width: 100%; height: auto;">
     </header>
     <hr>
-    <main>
+    <main id="main-content">
         <section>
             <h3>Project Overview</h3>
             <p class="left">Spatial-restricted messenger. The receiver can open a message only at the point where the sender had designated it to do so. Consists of an experimental UI Design, including 100 different interfaces for the loading screen.</p>
@@ -58,7 +38,7 @@
             <h3>Technologies Used</h3>
             <div style="display: flex; flex-direction: column; gap: 10px;">
                 <div>React, GPS</div>
-                <div>'We Change SNU' Team Section Winner, Co-worked w/ JYC  <a href="http://www.snunews.com/news/articleView.html?idxno=30877" ">News Link</a></div>
+                <div>'We Change SNU' Team Section Winner, Co-worked w/ JYC  <a href="https://www.snunews.com/news/articleView.html?idxno=30877">News Link</a></div>
                 <div>Take a look at this project too! <a href="https://snufestival-e9a04.web.app/jabti">YaBTI project</a></div>
             </div>
         </section>
@@ -68,6 +48,6 @@
     <footer class="copyright">
         <p>© Woojin Bae, 2026</p>
     </footer>
-    <script src="../theme-switcher.js"></script>
+    <script src="../theme-controls.js"></script>
 </body>
 </html>

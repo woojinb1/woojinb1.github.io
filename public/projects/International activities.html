@@ -1,22 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-<script>
-// 즉시 실행 테마 설정 - HTML 파싱 전 실행
-(function() {
-    try {
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !currentTheme) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    } catch (e) {
-        console.error('테마 설정 오류:', e);
-    }
-})();
-</script>
 <head>
+    <script src="../theme-init.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>International Projects</title>
@@ -144,16 +129,18 @@
 
     <script>
         fetch('/api-key')
-            .then(response => response.json())
+            .then(response => { if (!response.ok) throw new Error("Map unavailable"); return response.json(); })
             .then(data => {
                 const apiKey = data.apiKey;
+                if (!apiKey) throw new Error("Map unavailable");
                 
                 const script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=loadMap`;
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&callback=loadMap`;
                 script.async = true;
                 document.head.appendChild(script);
             })
-            .catch(error => console.error('Error fetching API key:', error));
+            .catch(() => { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', showMapError); else showMapError(); });
+        function showMapError() { const map = document.getElementById('map'); if (map) map.textContent = 'The interactive map is temporarily unavailable. Please try again later.'; }
 
         function loadMap() {
             let zoomLevel;
@@ -187,8 +174,8 @@
                         <h3>Arizona State University</h3>
                         <p>Synthesized perovskite nanocrystals with controlled morphologies to investigate phonon-polariton coupling with hexagonal boron nitride</p>
                         <p>Undergraduate Researcher in Susarla group</p>
-                        <a href="https://faculty.engineering.asu.edu/susarla-group/" target="_blank">Home page</a>
-                        <a href="file/SURI_poster_WoojinBae.pdf" target="_blank">view .pdf</a>
+                        <a href="https://faculty.engineering.asu.edu/susarla-group/" target="_blank" rel="noopener noreferrer">Home page</a>
+                        <a href="file/SURI_poster_WoojinBae.pdf" target="_blank" rel="noopener noreferrer">view .pdf</a>
                         
                     `
                 },
@@ -199,7 +186,7 @@
                         <h3>North Carolina State University</h3>
                         <p>Awarded a $9000 scholarship as a STEM-specialized exchange student</p>
                         <p>Undergraduate Researcher in Abolhasani group</p>
-                        <a href="https://www.abolhasanilab.com" target="_blank">Home page</a>
+                        <a href="https://www.abolhasanilab.com" target="_blank" rel="noopener noreferrer">Home page</a>
                     `
                 },
                 { 
@@ -221,7 +208,7 @@
                         <h3>Brussels School of Governance</h3>
                         <p>Understanding European Unions (EU)</p>
                         <p>Delivered a presentation titled "The European External Action Service"</p>
-                        <a href="https://youtu.be/q9Q3Xq50_SA?si=C0V-nqllsLyJVwA4" target="_blank">Watch my UCC!</a>
+                        <a href="https://youtu.be/q9Q3Xq50_SA?si=C0V-nqllsLyJVwA4" target="_blank" rel="noopener noreferrer">Watch my UCC!</a>
                     `
                 },
                 { 
@@ -230,7 +217,7 @@
                         <h2>AUA-HKUST Entrepreneurship Bootcamp 2024</h3>
                         <h3>Hong Kong University of Science and Technology</h2>
                         <p>Borderless Healthcare: A Platform for Overseas Patients to Obtain Prescriptions Everywhere</p>
-                        <a href="https://www.linkedin.com/posts/hkust-entrepreneurship-center_weeepark-chandangsocialservicesfoundation-activity-7216736929734643712-84jD?utm_source=share&utm_medium=member_desktop" target="_blank">LinkedIn</a>
+                        <a href="https://www.linkedin.com/posts/hkust-entrepreneurship-center_weeepark-chandangsocialservicesfoundation-activity-7216736929734643712-84jD?utm_source=share&utm_medium=member_desktop" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                     `
                 },
                 { 
@@ -239,11 +226,11 @@
                         <h2>Tokyo Forum Youth Session</h3>
                         <h3>The University of Tokyo</h3>
                         <div class="video-container" style="display: flex; justify-content: center; align-items: center;">
-                            <iframe src="https://www.youtube.com/embed/AJ7zCMsYVOY" style="width: 100%; aspect-ratio: 16/9;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe title="Project video" loading="lazy" src="https://www.youtube.com/embed/AJ7zCMsYVOY" style="width: 100%; aspect-ratio: 16/9;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <p>Participated in the Tokyo Forum 2024 Youth Session, contributing to discussions on "Rethinking Life Choices Beyond the 'Child Penalty'" and engaging in the Wrap-up Session.</p>
-                        <a href="https://n.news.naver.com/article/011/0004386074?sid=101" target="_blank">News Link</a>
-                        <a href="https://www.mk.co.kr/news/contributors/11180690" target="_blank">News Link</a>
+                        <a href="https://n.news.naver.com/article/011/0004386074?sid=101" target="_blank" rel="noopener noreferrer">News Link</a>
+                        <a href="https://www.mk.co.kr/news/contributors/11180690" target="_blank" rel="noopener noreferrer">News Link</a>
                         `
                 },
                 {
@@ -252,7 +239,7 @@
                         <h2>2025 Winter SNU Volunteer Corps</h2>
                         <h3>University of Mataram, Lombok</h3>
                         <div class="video-container" style="display: flex; justify-content: center; align-items: center;">
-                            <iframe src="https://www.youtube.com/embed/-ITyA1sfVVw?si=lwVdesSJ1mg3iB8Z" style="width: 100%; aspect-ratio: 16/9;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe title="Project video" loading="lazy" src="https://www.youtube.com/embed/-ITyA1sfVVw?si=lwVdesSJ1mg3iB8Z" style="width: 100%; aspect-ratio: 16/9;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                     `
                 }
@@ -274,14 +261,9 @@
     </script>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-<div class="theme-icon">
-                <i class="fas fa-sun"></i>
-                <i class="fas fa-moon"></i>
-            </div>
-        </label>
+        <button class="theme-switch" type="button" aria-label="Dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true"><i class="fas fa-sun"></i><i class="fas fa-moon"></i></span></button>
     </div>
     
     <nav>
@@ -295,17 +277,17 @@
     <header>
         <h1>International Projects</h1>
     </header>
-    <div class="map-container">
-        <div id="map"></div>
+    <main id="main-content" class="map-container">
+        <div id="map" aria-label="International activities map"></div>
         <div id="info-container" class="info-container">
             <!-- 여기에서 마커를 클릭하면 정보가 표시됩니다 -->
         </div>
         <hr>
         <a href="../projects.html" class="btn">Back to Projects</a>
-    </div>
+    </main>
     <footer class="copyright">
         <p>© Woojin Bae, 2026</p>
     </footer>
-    <script src="../theme-switcher.js"></script>
+    <script src="../theme-controls.js"></script>
 </body>
 </html>
